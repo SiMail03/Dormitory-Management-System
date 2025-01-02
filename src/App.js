@@ -20,6 +20,8 @@ import Sidebar from "./Sidebar";
 import "./Sidebar.css"; // Import Sidebar CSS
 import MealPlan from "./MealPlan";
 import "./MealPlan.css";
+import Maintenance from "./Maintenance";
+import "./Maintenance.css";
 
 import Management from "./Management"; // Import Management Component
 
@@ -86,6 +88,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/mealplan" element={<MealPlan />} />
             <Route path="/management" element={<Management />} />
+            <Route path="/maintenance" element={<Maintenance />} />
 
             {/* Add more routes here */}
           </Routes>
