@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Register.css"; // Assuming you have a CSS file for styling
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -12,14 +13,19 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const name = email.split(".")[0]; // Extract the first part of the email
-      await axios.post("http://localhost:5000/register", { email, password });
+      const name = email.split("@")[0]; // Extract the part before the @
+      await axios.post("http://localhost:5000/register", {
+        email,
+        password,
+        name,
+      });
       localStorage.setItem("name", name); // Save the name to localStorage
       setMessage("User registered successfully!");
       setError("");
-      navigate("/dashboard"); // Redirect to the login page
+      navigate("/dashboard"); // Redirect to the dashboard page
     } catch (err) {
       setError("Registration failed");
+      setMessage(""); // Clear success message on error
     }
   };
 
@@ -46,8 +52,8 @@ const Register = () => {
           />
         </div>
         <button type="submit">Register</button>
-        {message && <p>{message}</p>}
-        {error && <p>{error}</p>}
+        {message && <p className="success-message">{message}</p>}
+        {error && <p className="error-message">{error}</p>}
       </form>
     </div>
   );
