@@ -22,6 +22,8 @@ import MealPlan from "./MealPlan";
 import "./MealPlan.css";
 import Maintenance from "./Maintenance";
 import "./Maintenance.css";
+import Wash from "./Wash";
+import "./Wash.css";
 
 import Management from "./Management"; // Import Management Component
 
@@ -89,6 +91,7 @@ const App = () => {
             <Route path="/mealplan" element={<MealPlan />} />
             <Route path="/management" element={<Management />} />
             <Route path="/maintenance" element={<Maintenance />} />
+            <Route path="/wash" element={<Wash />} />
 
             {/* Add more routes here */}
           </Routes>

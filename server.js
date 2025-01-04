@@ -77,24 +77,28 @@ app.post("/register", async (req, res) => {
 });
 
 // Middleware to verify JWT token
-const authenticateToken = (req, res, next) => {
+function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (token == null) {
-    console.log("Token missing");
-    return res.sendStatus(401); // If no token, unauthorized
-  }
+  if (token == null) return res.status(401).send("Token missing");
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) {
-      console.log("Token verification failed:", err.message);
-      return res.sendStatus(403); // If token is invalid, forbidden
-    }
+    if (err) return res.status(403).send("Invalid token");
     req.user = user;
     next();
   });
-};
+}
+
+function authenticateManagement(req, res, next) {
+  authenticateToken(req, res, () => {
+    if (req.user.role !== "management") {
+      console.log("Access denied: User does not have management role"); // Log role check failure
+      return res.status(403).send("Access denied");
+    }
+    next();
+  });
+}
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -120,9 +124,13 @@ app.post("/login", async (req, res) => {
         console.log("Password match:", isPasswordMatch); // Log password comparison result
 
         if (isPasswordMatch) {
-          const token = jwt.sign({ email: user.email }, JWT_SECRET, {
-            expiresIn: "1h",
-          });
+          const token = jwt.sign(
+            { email: user.email, role: user.role },
+            JWT_SECRET,
+            {
+              expiresIn: "1h",
+            }
+          );
           return res.json({ token });
         } else {
           return res.status(401).send("Invalid email or password");
@@ -350,6 +358,223 @@ app.get("/maintenance-requests", authenticateToken, (req, res) => {
       } else {
         res.status(404).send("User not found");
       }
+    }
+  );
+});
+
+app.get("/washing-machines", authenticateToken, (req, res) => {
+  db.query("SELECT * FROM washing_machines", (err, results) => {
+    if (err) {
+      return res.status(500).send("Server error");
+    }
+    res.json(results);
+  });
+});
+
+app.post("/reserve-washing-machine", authenticateToken, (req, res) => {
+  const { machineId } = req.body;
+  const userEmail = req.user.email; // Authenticated user's email
+
+  db.query(
+    "SELECT id FROM users WHERE email = ?",
+    [userEmail],
+    (err, results) => {
+      if (err) {
+        return res.status(500).send("Server error");
+      }
+
+      if (results.length > 0) {
+        const userId = results[0].id;
+
+        db.query(
+          "SELECT * FROM washing_machines WHERE id = ? AND status = 'available'",
+          [machineId],
+          (err, results) => {
+            if (err) {
+              return res.status(500).send("Server error");
+            }
+
+            if (results.length > 0) {
+              // Reserve the washing machine
+              db.query(
+                "INSERT INTO washing_machine_reservations (user_id, machine_id, status) VALUES (?, ?, 'pending')",
+                [userId, machineId],
+                (err, results) => {
+                  if (err) {
+                    return res.status(500).send("Server error");
+                  }
+
+                  // Update machine status to unavailable
+                  db.query(
+                    "UPDATE washing_machines SET status = 'unavailable' WHERE id = ?",
+                    [machineId],
+                    (err, results) => {
+                      if (err) {
+                        return res.status(500).send("Server error");
+                      }
+                      res.send("Washing machine reserved successfully");
+                    }
+                  );
+                }
+              );
+            } else {
+              res.status(400).send("Machine unavailable or does not exist");
+            }
+          }
+        );
+      } else {
+        res.status(404).send("User not found");
+      }
+    }
+  );
+});
+
+app.get("/user-reservations", authenticateToken, (req, res) => {
+  const userEmail = req.user.email; // Authenticated user's email
+
+  db.query(
+    "SELECT id FROM users WHERE email = ?",
+    [userEmail],
+    (err, results) => {
+      if (err) {
+        return res.status(500).send("Server error");
+      }
+
+      if (results.length > 0) {
+        const userId = results[0].id;
+
+        // Get the user's washing machine reservations
+        db.query(
+          `SELECT r.id, m.machine_number, r.status
+         FROM washing_machine_reservations r
+         JOIN washing_machines m ON r.machine_id = m.id
+         WHERE r.user_id = ?`,
+          [userId],
+          (err, results) => {
+            if (err) {
+              return res.status(500).send("Server error");
+            }
+            res.json(results);
+          }
+        );
+      } else {
+        res.status(404).send("User not found");
+      }
+    }
+  );
+});
+// Update Washing Machine Status
+app.post(
+  "/update-washing-machine-status",
+  authenticateManagement,
+  (req, res) => {
+    const { machineId, status } = req.body;
+
+    if (!machineId || !status) {
+      console.log("Missing parameters: machineId or status");
+      return res.status(400).send("Machine ID and status are required");
+    }
+
+    console.log(`Updating machineId ${machineId} to status ${status}`);
+
+    // If the status is "finished", make the machine available and remove reservation
+    if (status === "finished") {
+      db.query(
+        "UPDATE washing_machines SET status = 'available' WHERE id = ?",
+
+        [machineId],
+        (err, results) => {
+          if (err) {
+            console.error("Database error:", err); // Log detailed error message
+            return res.status(500).send("Server error");
+          }
+          if (results.affectedRows === 0) {
+            console.log("Machine not found");
+            return res.status(404).send("Machine not found");
+          }
+
+          // Remove the corresponding reservation entry
+          db.query(
+            "DELETE FROM washing_machine_reservations WHERE machine_id = ?",
+            [machineId],
+            (err, results) => {
+              if (err) {
+                console.error("Database error:", err); // Log detailed error message
+                return res.status(500).send("Server error");
+              }
+              console.log(
+                "Washing machine status changed to available and reservation removed"
+              );
+              res.send(
+                "Washing machine status changed to available and reservation removed"
+              );
+            }
+          );
+        }
+      );
+    } else {
+      db.query(
+        "UPDATE washing_machine_reservations SET status = ? WHERE machine_id = ? AND status != 'finished'",
+        [status, machineId],
+        (err, results) => {
+          if (err) {
+            console.error("Database error:", err); // Log detailed error message
+            return res.status(500).send("Server error");
+          }
+          if (results.affectedRows === 0) {
+            console.log("Machine not found or already finished");
+            return res
+              .status(404)
+              .send("Machine not found or already finished");
+          }
+          console.log("Washing machine status updated successfully");
+          res.send("Washing machine status updated successfully");
+        }
+      );
+    }
+  }
+);
+
+app.post("/make-washing-machine-available", authenticateToken, (req, res) => {
+  const { machineId } = req.body;
+
+  if (!machineId) {
+    console.log("Missing machineId");
+    return res.status(400).send("Machine ID is required");
+  }
+
+  console.log("Received request to make machine available:", machineId); // Log the machine ID received
+
+  db.query(
+    "UPDATE washing_machines SET status = 'available' WHERE id = ?",
+    [machineId],
+    (err, results) => {
+      if (err) {
+        console.error("Database error:", err); // Log detailed error message
+        return res.status(500).send("Server error");
+      }
+      if (results.affectedRows === 0) {
+        console.log("Machine not found");
+        return res.status(404).send("Machine not found");
+      }
+      console.log("Washing machine status changed to available");
+      res.send("Washing machine status changed to available");
+    }
+  );
+});
+
+app.get("/all-reservations", authenticateManagement, (req, res) => {
+  db.query(
+    `SELECT r.id, m.machine_number, r.status, u.email
+     FROM washing_machine_reservations r
+     JOIN washing_machines m ON r.machine_id = m.id
+     JOIN users u ON r.user_id = u.id`,
+    (err, results) => {
+      if (err) {
+        console.error("Database error:", err); // Log detailed error message
+        return res.status(500).send("Server error");
+      }
+      res.json(results);
     }
   );
 });

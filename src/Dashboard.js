@@ -27,6 +27,7 @@ const Dashboard = () => {
           </Link>
           <Link to="/wash" className="option-card">
             <GiWashingMachine size="100px" />
+
             <h2>Wash</h2>
           </Link>
         </div>

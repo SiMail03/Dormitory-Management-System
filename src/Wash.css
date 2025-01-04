@@ -1,0 +1,77 @@
+.washing-machine-container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.washing-machine-container h2,
+.washing-machine-container h3 {
+  margin-bottom: 20px;
+}
+
+.machines {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.machine img {
+  width: 100px;
+  height: 100px;
+}
+
+.machine button {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  visibility: visible; /* Ensure the buttons are visible */
+}
+
+.machine button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.reservations-list {
+  margin-top: 20px;
+  text-align: left;
+  max-height: 400px; /* Set a max-height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.reservation-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.reservation-item p {
+  margin: 5px 0;
+}

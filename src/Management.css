@@ -8,7 +8,6 @@ html {
 
 .management-container {
   animation: fadeIn 1s;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,4 +83,97 @@ html {
 .meal-item span {
   font-size: 1em;
   color: #ccc;
+}
+
+.washing-machine-management {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.washing-machine-management h2 {
+  color: #f0f2f5;
+}
+
+.machines {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.machine img {
+  width: 100px;
+  height: 100px;
+}
+
+.management-controls {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.management-controls button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+.management-controls button:hover {
+  background-color: #0056b3;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.reservations-list {
+  margin-top: 20px;
+  text-align: left;
+  max-height: 400px; /* Set a max-height */
+  overflow-y: auto; /* Enable vertical scrolling */
+} /* Styling for individual reservation items */
+.reservation-item {
+  background: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Semi-transparent background for reservation items */
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} /* Styling for text within reservation items */
+.reservation-item p {
+  margin: 5px 0;
+} /* Styling for the Available button in reservation items */
+.reservation-item button {
+  padding: 5px 10px;
+  background-color: #28a745; /* Green background for Available button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+} /* Hover effect for Available button */
+.reservation-item button:hover {
+  background-color: #218838;
 }
