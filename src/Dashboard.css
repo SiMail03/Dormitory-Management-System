@@ -2,7 +2,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f9f9f9;
+  background: linear-gradient(135deg, #f9f9f9 0%, #e0e0e0 100%);
   margin: 0;
   padding: 0;
 }
@@ -15,9 +15,10 @@ body {
 
 .dashboard-container h1 {
   font-size: 50px;
-  color: #ffbf00;
+  color: #ffffff;
   letter-spacing: 2px;
   margin-bottom: 80px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .options {
@@ -41,17 +42,20 @@ body {
   text-decoration: none;
   color: #333;
   width: 220px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  animation: fadeIn 1s;
 }
 
 .option-card:hover {
-  background-color: #dadada;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  background-color: #f0f0f0;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
 }
 
 .option-card h2 {
@@ -69,12 +73,10 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
-}
-
-.option-card {
-  animation: fadeIn 1s;
 }

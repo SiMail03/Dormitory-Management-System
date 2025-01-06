@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import "./MealPlan.css";
 
 const MealPlan = () => {
@@ -56,23 +57,23 @@ const MealPlan = () => {
   }
 
   const week1Meals = {
-    Monday: "Spaghetti Bolognese",
-    Tuesday: "Chicken Curry",
-    Wednesday: "Vegetarian Pizza",
-    Thursday: "Grilled Salmon",
-    Friday: "Tacos",
-    Saturday: "Burger",
-    Sunday: "Roast Chicken",
+    Monday: { name: "Spaghetti Bolognese", emoji: "🍝" },
+    Tuesday: { name: "Chicken Curry", emoji: "🍛" },
+    Wednesday: { name: "Vegetarian Pizza", emoji: "🍕" },
+    Thursday: { name: "Grilled Salmon", emoji: "🐟" },
+    Friday: { name: "Tacos", emoji: "🌮" },
+    Saturday: { name: "Burger", emoji: "🍔" },
+    Sunday: { name: "Roast Chicken", emoji: "🍗" },
   };
 
   const week2Meals = {
-    Monday: "Lasagna",
-    Tuesday: "Fish and Chips",
-    Wednesday: "Beef Stroganoff",
-    Thursday: "Stuffed Peppers",
-    Friday: "Pizza",
-    Saturday: "Chicken Nuggets",
-    Sunday: "Pasta Carbonara",
+    Monday: { name: "Lasagna", emoji: "🍝" },
+    Tuesday: { name: "Fish and Chips", emoji: "🍟" },
+    Wednesday: { name: "Beef Stroganoff", emoji: "🥩" },
+    Thursday: { name: "Stuffed Peppers", emoji: "🌶️" },
+    Friday: { name: "Pizza", emoji: "🍕" },
+    Saturday: { name: "Chicken Nuggets", emoji: "🍗" },
+    Sunday: { name: "Pasta Carbonara", emoji: "🍝" },
   };
 
   return (
@@ -96,7 +97,8 @@ const MealPlan = () => {
           <ul>
             {Object.keys(week1Meals).map((day) => (
               <li key={day}>
-                <strong>{day}:</strong> {week1Meals[day]}
+                <span className="meal-emoji">{week1Meals[day].emoji}</span>
+                <strong>{day}:</strong> {week1Meals[day].name}
               </li>
             ))}
           </ul>
@@ -106,7 +108,8 @@ const MealPlan = () => {
           <ul>
             {Object.keys(week2Meals).map((day) => (
               <li key={day}>
-                <strong>{day}:</strong> {week2Meals[day]}
+                <span className="meal-emoji">{week2Meals[day].emoji}</span>
+                <strong>{day}:</strong> {week2Meals[day].name}
               </li>
             ))}
           </ul>

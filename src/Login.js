@@ -51,6 +51,12 @@ const Login = () => {
         <button type="submit">Login</button>
         {error && <p>{error}</p>}
       </form>
+      <div className="register-container">
+        <p className="register-prompt">Not registered? Register now!</p>
+        <button onClick={() => navigate("/register")} className="register-btn">
+          Register
+        </button>
+      </div>
     </div>
   );
 };

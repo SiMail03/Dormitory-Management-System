@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { GiWashingMachine } from "react-icons/gi";
 import { FaUtensils, FaTools } from "react-icons/fa";
@@ -10,10 +11,26 @@ const Dashboard = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    const userName = localStorage.getItem("name");
-    setName(
-      userName ? userName.charAt(0).toUpperCase() + userName.slice(1) : ""
-    );
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:5000/user-info", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const email = response.data.email;
+        const extractName = (email) => {
+          const namePart = email.split("@")[0];
+          const firstName = namePart.split(".")[0];
+          return firstName.charAt(0).toUpperCase() + firstName.slice(1);
+        };
+        const userName = extractName(email);
+        setName(userName);
+      } catch (err) {
+        console.error("Failed to fetch user information", err);
+        setName(".");
+      }
+    };
+    fetchUserInfo();
   }, []);
   return (
     <div className="dashboard-container">

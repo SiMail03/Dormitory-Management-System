@@ -6,6 +6,7 @@ import {
   useLocation,
   useNavigate,
   Link,
+  Navigate, // Import Navigate for redirection
 } from "react-router-dom";
 import "./Header.css";
 import "./Background.css"; // Import Background CSS
@@ -26,10 +27,14 @@ import Wash from "./Wash";
 import "./Wash.css";
 
 import Management from "./Management"; // Import Management Component
+import withManagementAccess from "./withManagementAccess"; // Import HOC
 
 import axios from "axios";
 import { FaBars } from "react-icons/fa";
 import logo from "./logo_fondacija_izvor_nade.png";
+
+// Wrap Management component with access control HOC
+const ManagementWithAccessControl = withManagementAccess(Management);
 
 const App = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -85,15 +90,18 @@ const App = () => {
         {shouldShowSidebar && <Sidebar isOpen={isSidebarOpen} />}
         <div className="content">
           <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />{" "}
+            {/* Redirect root to login */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/mealplan" element={<MealPlan />} />
-            <Route path="/management" element={<Management />} />
+            <Route
+              path="/management"
+              element={<ManagementWithAccessControl />}
+            />
             <Route path="/maintenance" element={<Maintenance />} />
             <Route path="/wash" element={<Wash />} />
-
-            {/* Add more routes here */}
           </Routes>
         </div>
       </div>

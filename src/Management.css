@@ -1,11 +1,4 @@
-body,
-html {
-  height: 100%;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  animation: fadeIn 1s;
-}
-
+/* Overall container style */
 .management-container {
   animation: fadeIn 1s;
   display: flex;
@@ -13,19 +6,22 @@ html {
   align-items: center;
   justify-content: center;
   min-height: 83vh;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.6
-  ); /* Semi-transparent background to blend with the main background image */
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.6)
+  ); /* Gradient background */
   padding: 20px;
-  color: white; /* Ensure text is visible */
+  color: white;
 }
 
-.management-container h1 {
+.management-container h1,
+.management-container h2,
+.management-container h3 {
   margin-bottom: 20px;
   color: #f0f2f5; /* Light color for headings */
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
 }
 
 .meal-counter {
@@ -41,6 +37,11 @@ html {
   width: 300px;
   text-align: center;
   margin-bottom: 20px;
+  transition: transform 0.3s; /* Add transition for hover effect */
+}
+
+.meal-counter:hover {
+  transform: scale(1.05); /* Scale up on hover */
 }
 
 .meal-counter h2 {
@@ -54,45 +55,12 @@ html {
   font-size: 1.2em;
 }
 
-.meal-list {
-  width: 100%;
-  max-width: 600px;
-  margin-top: 20px;
-}
-
-.meal-item {
-  background: rgba(
-    255,
-    255,
-    255,
-    0.1
-  ); /* Semi-transparent background for meal items */
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.meal-item strong {
-  font-size: 1.2em;
-  color: #fff;
-}
-
-.meal-item span {
-  font-size: 1em;
-  color: #ccc;
-}
-
-.washing-machine-management {
-  margin-top: 20px;
+.meal-list,
+.washing-machine-management,
+.maintenance-management {
   width: 100%;
   max-width: 700px;
-}
-
-.washing-machine-management h2 {
-  color: #f0f2f5;
+  margin-top: 20px;
 }
 
 .machines {
@@ -108,11 +76,6 @@ html {
   margin: 10px;
 }
 
-.machine img {
-  width: 100px;
-  height: 100px;
-}
-
 .management-controls {
   display: flex;
   flex-direction: column;
@@ -120,17 +83,26 @@ html {
 }
 
 .management-controls button {
-  padding: 5px 10px;
-  background-color: #007bff;
+  padding: 10px 15px; /* Increase padding */
+  background: linear-gradient(
+    135deg,
+    #007bff,
+    #0056b3
+  ); /* Gradient background */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin: 5px 0;
+  transition: background 0.3s; /* Add transition for hover effect */
 }
 
 .management-controls button:hover {
-  background-color: #0056b3;
+  background: linear-gradient(
+    135deg,
+    #0056b3,
+    #003f7f
+  ); /* Darker gradient on hover */
 }
 
 .success-message {
@@ -143,37 +115,63 @@ html {
   margin-top: 10px;
 }
 
-.reservations-list {
+.all-reservations-list {
   margin-top: 20px;
   text-align: left;
   max-height: 400px; /* Set a max-height */
   overflow-y: auto; /* Enable vertical scrolling */
-} /* Styling for individual reservation items */
-.reservation-item {
+}
+
+.maintenance-list {
+  margin-top: 20px;
+  text-align: left;
+  max-height: none; /* Remove max-height */
+  overflow-y: visible; /* Disable vertical scrolling */
+  width: 100%; /* Ensure it takes full width */
+}
+
+.reservation-item,
+.maintenance-item {
   background: rgba(
     255,
     255,
     255,
     0.1
-  ); /* Semi-transparent background for reservation items */
+  ); /* Semi-transparent background for items */
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-} /* Styling for text within reservation items */
-.reservation-item p {
+  transition: background 0.3s; /* Add transition for hover effect */
+}
+
+.reservation-item:hover,
+.maintenance-item:hover {
+  background: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Slightly darker background on hover */
+}
+
+.reservation-item p,
+.maintenance-item p {
   margin: 5px 0;
-} /* Styling for the Available button in reservation items */
-.reservation-item button {
+}
+
+.maintenance-item button {
   padding: 5px 10px;
-  background-color: #28a745; /* Green background for Available button */
+  background-color: #28a745; /* Green background for completed button */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-} /* Hover effect for Available button */
-.reservation-item button:hover {
+  transition: background 0.3s; /* Add transition for hover effect */
+}
+
+.maintenance-item button:hover {
   background-color: #218838;
 }

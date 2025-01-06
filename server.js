@@ -48,9 +48,6 @@ app.use((req, res, next) => {
   next();
 });
 
-const users = [{}];
-let mealSignups = 0; // Variable to track meal signups
-
 const JWT_SECRET = process.env.JWT_SECRET;
 // Helper function to hash passwords
 const hashPassword = async (plainPassword) => {
@@ -89,6 +86,26 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+app.get("/user-info", authenticateToken, (req, res) => {
+  const userEmail = req.user.email;
+
+  db.query(
+    "SELECT email FROM users WHERE email = ?",
+    [userEmail],
+    (err, results) => {
+      if (err) {
+        console.error("Database error:", err); // Log detailed error message
+        return res.status(500).send("Server error");
+      }
+
+      if (results.length > 0) {
+        res.json({ email: results[0].email });
+      } else {
+        res.status(404).send("User not found");
+      }
+    }
+  );
+});
 
 function authenticateManagement(req, res, next) {
   authenticateToken(req, res, () => {
@@ -362,6 +379,48 @@ app.get("/maintenance-requests", authenticateToken, (req, res) => {
   );
 });
 
+app.get(
+  "/maintenance-requests-management",
+  authenticateManagement,
+  (req, res) => {
+    db.query("SELECT * FROM maintenance_requests", (err, results) => {
+      if (err) {
+        console.error("Error fetching maintenance requests:", err);
+        return res.status(500).send("Server error");
+      }
+      res.json(results);
+    });
+  }
+);
+
+app.post(
+  "/complete-maintenance-request",
+  authenticateManagement,
+  (req, res) => {
+    const { requestId } = req.body;
+
+    if (!requestId) {
+      return res.status(400).send("Request ID is required");
+    }
+
+    db.query(
+      "DELETE FROM maintenance_requests WHERE id = ?",
+      [requestId],
+      (err, results) => {
+        if (err) {
+          console.error("Error updating maintenance request status:", err);
+          return res.status(500).send("Server error");
+        }
+        if (results.affectedRows === 0) {
+          console.log("Maintenance request not found");
+          return res.status(404).send("Maintenance request not found");
+        }
+        res.send("Maintenance request marked as completed");
+      }
+    );
+  }
+);
+
 app.get("/washing-machines", authenticateToken, (req, res) => {
   db.query("SELECT * FROM washing_machines", (err, results) => {
     if (err) {
@@ -577,6 +636,10 @@ app.get("/all-reservations", authenticateManagement, (req, res) => {
       res.json(results);
     }
   );
+});
+
+app.get("/management", authenticateManagement, (req, res) => {
+  res.send("Management page access granted");
 });
 
 app.get("/dashboard", authenticateToken, (req, res) => {

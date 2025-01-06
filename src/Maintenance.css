@@ -3,21 +3,27 @@ html {
   height: 100%;
   margin: 0;
   overflow: auto; /* Ensure scrolling is enabled */
+  font-family: Arial, sans-serif; /* Improve font */
+  background-color: #f0f2f5; /* Light background color */
 }
 
 .maintenance-container {
-  max-width: 500px;
+  max-width: 600px; /* Increase max-width for better layout */
   margin: auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: #f9f9f9;
+  background-color: #fff; /* Change to white for better contrast */
   text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  transition: transform 0.3s; /* Add transition for hover effect */
 }
 
 .maintenance-container h2,
 .maintenance-container h3 {
   margin-bottom: 20px;
+  color: #333; /* Darker color for headings */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Improve font */
 }
 
 .maintenance-container form div {
@@ -27,13 +33,23 @@ html {
 .maintenance-container label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold; /* Bold labels */
+  color: #555; /* Slightly darker color */
 }
 
 .maintenance-container input,
 .maintenance-container textarea {
   width: 100%;
-  padding: 8px;
+  padding: 10px; /* Increase padding for better input fields */
   box-sizing: border-box;
+  border: 1px solid #ccc; /* Add border to inputs */
+  border-radius: 5px; /* Rounded corners for inputs */
+  transition: border-color 0.3s; /* Smooth transition for focus effect */
+}
+
+.maintenance-container input:focus,
+.maintenance-container textarea:focus {
+  border-color: #28a745; /* Change border color on focus */
 }
 
 .maintenance-container button {
@@ -43,10 +59,12 @@ html {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effect */
 }
 
 .maintenance-container button:hover {
   background-color: #218838;
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 .success-message {
@@ -68,12 +86,19 @@ html {
 
 .request-item {
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 15px; /* Increase padding for better spacing */
   margin-bottom: 10px;
   border-radius: 5px;
   background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  transition: transform 0.3s; /* Add transition for hover effect */
+}
+
+.request-item:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
 }
 
 .request-item p {
   margin: 5px 0;
+  color: #555; /* Slightly darker text color */
 }

@@ -65,6 +65,7 @@ html {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-top: 16px; /* Add margin-top to separate from the register button */
 }
 
 .login-container button:hover {
@@ -75,4 +76,35 @@ html {
   color: red;
   margin-top: 16px;
   text-align: center;
+}
+
+/* New styles for the register prompt */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px; /* Add margin-top to separate from the form */
+}
+
+.register-prompt {
+  text-align: center;
+  color: #555;
+}
+
+.register-btn {
+  width: auto; /* Ensure width is auto */
+  padding: 10px 20px; /* Adjust padding for a smaller button */
+  background-color: #28a745;
+  border: none;
+  border-radius: 20px; /* More rounded corners */
+  color: white;
+  font-size: 14px; /* Slightly smaller font size */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Add transform transition */
+  margin-top: 8px; /* Add margin-top to separate from the prompt */
+}
+
+.register-btn:hover {
+  background-color: #218838;
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
 }

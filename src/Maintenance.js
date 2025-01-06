@@ -34,6 +34,13 @@ const Maintenance = () => {
     fetchRequests();
   }, []);
 
+  const handleRoomNumberChange = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setRoomNumber(value);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -68,7 +75,7 @@ const Maintenance = () => {
           <input
             type="text"
             value={roomNumber}
-            onChange={(e) => setRoomNumber(e.target.value)}
+            onChange={handleRoomNumberChange}
             required
           />
         </div>
