@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import "./MealPlan.css";
+import "../css/MealPlan.css";
 
 const MealPlan = () => {
   const [mealSignup, setMealSignup] = useState(false);

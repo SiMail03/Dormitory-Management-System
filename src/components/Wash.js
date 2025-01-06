@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GiWashingMachine } from "react-icons/gi";
 import axios from "axios";
-import "./Wash.css"; // Assuming you have a CSS file for styling
+import "../css/Wash.css"; // Assuming you have a CSS file for styling
 
 const WashingMachine = () => {
   const [machines, setMachines] = useState([]);

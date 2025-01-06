@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { GiWashingMachine } from "react-icons/gi";
-import "./Management.css";
+import "../css/Management.css";
 
 const Management = () => {
   const [mealCount, setMealCount] = useState(0);

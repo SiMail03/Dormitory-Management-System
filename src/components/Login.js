@@ -1,37 +1,34 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./Register.css"; // Assuming you have a CSS file for styling
+import "../css/Login.css";
 
-const Register = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const name = email.split("@")[0]; // Extract the part before the @
-      await axios.post("http://localhost:5000/register", {
+      const response = await axios.post("http://localhost:5000/login", {
         email,
         password,
-        name,
       });
-      localStorage.setItem("name", name); // Save the name to localStorage
-      setMessage("User registered successfully!");
+      const { token, name } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("name", name || email.split(".")[0]); // Extract and save the name if not present in the response
       setError("");
-      navigate("/dashboard"); // Redirect to the dashboard page
+      navigate("/dashboard"); // Redirect to the dashboard or main page
     } catch (err) {
-      setError("Registration failed");
-      setMessage(""); // Clear success message on error
+      setError("Invalid email or password");
     }
   };
 
   return (
-    <div className="register-container">
-      <h2>Register</h2>
+    <div className="login-container">
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Email</label>
@@ -51,12 +48,17 @@ const Register = () => {
             required
           />
         </div>
-        <button type="submit">Register</button>
-        {message && <p className="success-message">{message}</p>}
-        {error && <p className="error-message">{error}</p>}
+        <button type="submit">Login</button>
+        {error && <p>{error}</p>}
       </form>
+      <div className="register-container">
+        <p className="register-prompt">Not registered? Register now!</p>
+        <button onClick={() => navigate("/register")} className="register-btn">
+          Register
+        </button>
+      </div>
     </div>
   );
 };
 
-export default Register;
+export default Login;

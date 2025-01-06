@@ -6,31 +6,31 @@ import {
   useLocation,
   useNavigate,
   Link,
-  Navigate, // Import Navigate for redirection
+  Navigate,
 } from "react-router-dom";
-import "./Header.css";
-import "./Background.css"; // Import Background CSS
-
-import Login from "./Login";
-import "./Login.css";
-import Register from "./Register";
-import "./Register.css";
-import Dashboard from "./Dashboard";
-import "./Dashboard.css";
-import Sidebar from "./Sidebar";
-import "./Sidebar.css"; // Import Sidebar CSS
-import MealPlan from "./MealPlan";
-import "./MealPlan.css";
-import Maintenance from "./Maintenance";
-import "./Maintenance.css";
-import Wash from "./Wash";
-import "./Wash.css";
-
-import Management from "./Management"; // Import Management Component
-import withManagementAccess from "./withManagementAccess"; // Import HOC
-
 import axios from "axios";
 import { FaBars } from "react-icons/fa";
+
+import "./css/Header.css";
+import "./css/Background.css";
+import "./css/Login.css";
+import "./css/Register.css";
+import "./css/Dashboard.css";
+import "./css/Sidebar.css";
+import "./css/MealPlan.css";
+import "./css/Maintenance.css";
+import "./css/Wash.css";
+
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Dashboard from "./components/Dashboard";
+import Sidebar from "./components/Sidebar";
+import MealPlan from "./components/MealPlan";
+import Maintenance from "./components/Maintenance";
+import Wash from "./components/Wash";
+import Management from "./components/Management";
+import withManagementAccess from "./components/withManagementAccess";
+
 import logo from "./logo_fondacija_izvor_nade.png";
 
 // Wrap Management component with access control HOC

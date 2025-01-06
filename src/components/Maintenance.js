@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Maintenance.css"; // Assuming you have a CSS file for styling
+import "../css/Maintenance.css"; // Assuming you have a CSS file for styling
 
 const Maintenance = () => {
   const [roomNumber, setRoomNumber] = useState("");

@@ -4,8 +4,8 @@ import { GiWashingMachine } from "react-icons/gi";
 import { FaUtensils, FaTools } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
 
-import "./Sidebar.css";
-import logo from "./logo_fondacija_izvor_nade.png";
+import "../css/Sidebar.css";
+import logo from "../logo_fondacija_izvor_nade.png";
 
 const Sidebar = ({ isOpen }) => (
   <div className={isOpen ? "sidebar open" : "sidebar"}>

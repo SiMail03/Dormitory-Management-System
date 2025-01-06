@@ -5,7 +5,7 @@ import { GiWashingMachine } from "react-icons/gi";
 import { FaUtensils, FaTools } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
 
-import "./Dashboard.css";
+import "../css/Dashboard.css";
 
 const Dashboard = () => {
   const [name, setName] = useState("");
