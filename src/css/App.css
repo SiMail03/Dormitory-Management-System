@@ -1,0 +1,28 @@
+.app-container {
+  display: flex;
+  background-color: #0a598a;
+}
+
+.main-content {
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+.sidebar.open ~ .main-content {
+  margin-left: 270px; /* Adjust based on expanded sidebar width */
+  width: calc(100% - 270px);
+}
+
+#header-button {
+  display: flex;
+}
+
+/* Hide scrollbar for all browsers */
+body {
+  overflow: hidden;
+}
+
+.access-forbidden {
+  color: red;
+  text-align: center;
+}
