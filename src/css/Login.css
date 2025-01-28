@@ -14,8 +14,8 @@ html {
   justify-content: flex-start; /* Changed from center to flex-start */
   padding-top: 10%; /* Adjust this value to move the container upwards */
 
-  min-height: 100vh;
-  background-color: #f0f2f5;
+  min-height: 70vh;
+  background-color: #f0f2f5ce;
 }
 
 .login-container h2 {
@@ -44,7 +44,6 @@ html {
 .login-container input {
   width: 100%;
   padding: 12px;
-  margin-bottom: 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
@@ -79,16 +78,13 @@ html {
 }
 
 /* New styles for the register prompt */
-.register-container {
-  display: flex;
+.register-container1 {
   flex-direction: column;
   align-items: center;
-  margin-top: 16px; /* Add margin-top to separate from the form */
 }
 
 .register-prompt {
   text-align: center;
-  color: #555;
 }
 
 .register-btn {

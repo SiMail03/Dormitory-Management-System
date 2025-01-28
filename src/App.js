@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { FaBars } from "react-icons/fa";
 
+import "./css/App.css";
 import "./css/Header.css";
 import "./css/Background.css";
 import "./css/Login.css";

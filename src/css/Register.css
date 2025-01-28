@@ -13,8 +13,8 @@ html {
   align-items: center;
   justify-content: flex-start;
   padding-top: 10%;
-  min-height: 100vh;
-  background-color: #f0f2f5;
+  min-height: 63vh;
+  background-color: #f0f2f5ce;
 }
 
 .register-container h2 {

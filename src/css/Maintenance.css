@@ -17,6 +17,7 @@ html {
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
   transition: transform 0.3s; /* Add transition for hover effect */
+  animation: fadeIn 1s;
 }
 
 .maintenance-container h2,
@@ -101,4 +102,15 @@ html {
 .request-item p {
   margin: 5px 0;
   color: #555; /* Slightly darker text color */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

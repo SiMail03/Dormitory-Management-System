@@ -7,11 +7,8 @@
   background-color: #f9f9f9;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add box shadow */
-  background: linear-gradient(
-    to right,
-    #e0eafc,
-    #cfdef3
-  ); /* Add background gradient */
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  animation: fadeIn 1s;
 }
 
 .washing-machine-container h2,
@@ -104,4 +101,15 @@
 
 .reservation-item p {
   margin: 5px 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
